@@ -1,10 +1,10 @@
-# node-cr-proxy
-[![clash royale](https://img.shields.io/badge/Clash%20Royale-1.9.2-brightred.svg?style=flat")](https://play.google.com/store/apps/details?id=com.supercell.clashroyale&hl=en)
-[![licence](https://img.shields.io/aur/license/yaourt.svg?style=flat)](https://github.com/royale-proxy/node-cr-proxy/blob/master/LICENSE)
+# node-bs-proxy
+[![brawl stars](https://img.shields.io/badge/Brawl%20Stars-12.x-brightred.svg?style=flat%22)](https://play.google.com/store/apps/details?id=com.supercell.brawlstars&hl=en)
+[![licence](https://img.shields.io/aur/license/yaourt.svg?style=flat)](https://github.com/Mahi-Uddin/node-bs-proxy/blob/master/LICENSE)
 
-Clash Royale Proxy - Intercepts the traffic between your Clash Royale App and their servers, decrypts the protocol and decodes the messages.
+Brawl Stars Proxy - Intercepts the traffic between Brawl Stars client(s) and their servers, decrypts the protocol and decodes the messages.
 
-Don't like NodeJs, prefer python? Get the [python proxy](https://github.com/royale-proxy/cr-proxy).
+Don't like NodeJs, prefer python? Get the [python proxy](https://github.com/Mahi-Uddin/TwistedProxy).
 
 ## How to use it?
 
@@ -12,23 +12,14 @@ Don't like NodeJs, prefer python? Get the [python proxy](https://github.com/roya
 
 #### Prerequisites
 * Install [nodejs](https://nodejs.org/en) (>=6.8.0)
-* Install [node-gyp](https://github.com/nodejs/node-gyp)
 
 #### Clone the code
 
-`git clone https://github.com/royale-proxy/node-cr-proxy && cd node-cr-proxy`
+`git clone https://github.com/Mahi-Uddin/node-bs-proxy && cd node-bs-proxy`
 
 `npm install`
 
 `cp settings.json.example settings.json` / `copy settings.json.example settings.json`
-  
-### Setting up your device
-
-#### Android
-  * Please see [cr-patcher](https://github.com/royale-proxy/cr-patcher) for instructions on how to get your apk ready to use the proxy.
-
-#### iPhone
-  * We do not have a patcher at this time.
 
 #### Running the proxy
 
@@ -44,5 +35,4 @@ Don't like NodeJs, prefer python? Get the [python proxy](https://github.com/roya
   
 ## What's the status?
 
-This project has been abandoned
-
+This project is being worked on, any help is appreciated :blush:

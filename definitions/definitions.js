@@ -17,19 +17,19 @@ class Definitions {
         self.options = options;
 
         ['client', 'server', 'component'].forEach(function(folder) {
-            fs.readdir('./node_modules/cr-messages/' + folder, (err, files) => {
+            fs.readdir(__dirname + '/bs-messages/' + folder, (err, files) => {
                 console.time('Loaded ' + folder + ' definitions in');
                 if (err) {
-                    console.log('error opening node-modules/cr-messages/' + folder + ': ' + err);
+                    console.log('Error opening ./bs-messages/' + folder + ': ' + err);
                     process.exit(1);
                 }
 
                 files.forEach(file => {
                     if(self.options.verbose) {
-                        console.log('loading ' + folder +'/' + file +'...');
+                        console.log('Loading ' + folder +'/' + file +'...');
                     }
 
-                    var json = JSON.parse(fs.readFileSync('./node_modules/cr-messages/' + folder + '/' + file, 'utf8'));
+                    var json = JSON.parse(fs.readFileSync(__dirname + '/bs-messages/' + folder + '/' + file, 'utf8'));
 
                     if (json.id) {
                         self.definitions[json.id] = json;

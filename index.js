@@ -7,13 +7,12 @@ var path = require('path');
 var jsome = require('jsome');
 var options = require('./util/usage').options;
 var settings = require('./settings.json');
+const Definitions = require('./definitions/definitions');
 
 require('console-stamp')(console, 'yyyy-mm-dd HH:MM:ss');
 
 var PacketReceiver = require('./lib/packetreceiver');
-var ClientCrypto = require('./lib/client/crypto');
-var ServerCrypto = require('./lib/server/crypto');
-var Definitions = require('./lib/definitions');
+var Crypto = require('./lib/crypto');
 var EMsg = require('./enums/emsg');
 
 var definitions = new Definitions(options);
@@ -59,15 +58,11 @@ if(options.replay) {
         var clientPacketReceiver = new PacketReceiver();
         var serverPacketReceiver = new PacketReceiver();
 
-        var clientCrypto = new ClientCrypto(settings);
-        var serverCrypto = new ServerCrypto(settings);
+        var crypto = new Crypto(settings);
 
-        clientCrypto.setServer(serverCrypto);
-        serverCrypto.setClient(clientCrypto);
+        console.log('New client ' + socket.key + ' connected, establishing connection to game server');
 
-        console.log('new client ' + socket.key + ' connected, establishing connection to game server');
-
-        gameserver.connect(9339, "game.clashroyaleapp.com", function() {
+        gameserver.connect(9339, "game.brawlstarsgame.com", function() {
             console.log('Connected to game server on ' + gameserver.remoteAddress + ':' + gameserver.remotePort);
         });
 
@@ -82,7 +77,7 @@ if(options.replay) {
 
                 console.log('[SERVER] ' + (EMsg[message.messageType] ? EMsg[message.messageType] + ' [' + message.messageType + ']' : message.messageType));
 
-                clientCrypto.decryptPacket(message);
+                crypto.decryptServerPacket(message)
 
                 if(options.dump) {
                     fs.writeFile(options.dump.filename + "/" + message.messageType + ".bin", Buffer.from(message.decrypted), {encoding: "binary"}, function(err) {
@@ -98,7 +93,7 @@ if(options.replay) {
                     jsome(message.decoded);
                 }
 
-                serverCrypto.encryptPacket(message);
+                crypto.encryptServerPacket(message);
 
                 var header = Buffer.alloc(7);
 
@@ -125,7 +120,7 @@ if(options.replay) {
 
                 console.log('[CLIENT] ' + (EMsg[message.messageType] ? EMsg[message.messageType] + ' [' + message.messageType + ']' : message.messageType));
 
-                serverCrypto.decryptPacket(message);
+                crypto.decryptClientPacket(message);
 
                 if(options.dump) {
                     fs.writeFile(options.dump.filename + "/" + message.messageType + ".bin", Buffer.from(message.decrypted), {encoding: "binary"}, function(err) {
@@ -141,7 +136,7 @@ if(options.replay) {
                     jsome(message.decoded);
                 }
 
-                clientCrypto.encryptPacket(message);
+                crypto.encryptClientPacket(message);
 
                 var header = Buffer.alloc(7);
 
